@@ -1,27 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package za.ac.tut.entities;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import za.ac.tut.entities.Person;
 
-/**
- *
- * @author user
- */
 @Entity
-public class Chore implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Chore {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String title;
+    private String description;
+    
+    @Temporal(TemporalType.DATE) // Changed to DATE for input compatibility
+    private Date dueDate;
+    private boolean completed;
+    
+    @ManyToOne
+    private Person user;
 
     public Long getId() {
         return id;
@@ -31,29 +27,45 @@ public class Chore implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String getTitle() {
+        return title;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Chore)) {
-            return false;
-        }
-        Chore other = (Chore) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "za.ac.tut.entities.Chore[ id=" + id + " ]";
+    public String getDescription() {
+        return description;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public Person getUser() {
+        return user;
+    }
+
+    public void setUser(Person user) {
+        this.user = user;
+    }
+
     
 }
